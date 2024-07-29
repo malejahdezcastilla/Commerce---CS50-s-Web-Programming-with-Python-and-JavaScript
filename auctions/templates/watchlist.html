@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2> <span>{{ user.username }}</span> this is your Watchlist</h2>
+
+
+    <div class= "card-container">
+        
+        {% for item in watchlist.item_post.all %}
+    
+        <div class="card" style="width: 18rem;">
+            <img id= "img" src="{{item.picture}}" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Price: ${{item.price}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{item.title}}</h6>
+                    <p class="card-text">{{item.description}}</p>
+                    <a href="{% url "item" id=item.id %}" class="card-link">Details</a>
+                    <div>
+                        <form action= "{% url "delete_from_watchlist" id=item.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-secondary"><i class="bi bi-trash3"></i></button>
+                        </form> 
+                    </div>
+                </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% if message %}
+    <div class= "alert alert-success" role= "alert">
+        {{message}}
+    </div>
+    {% endif %} 
+
+{% endblock %}

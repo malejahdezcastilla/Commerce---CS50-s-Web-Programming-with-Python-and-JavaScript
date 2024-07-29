@@ -1,0 +1,48 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2> Find by Category</h2>
+
+    <form action = "{% url "categories" %}" method="POST" >
+        {% csrf_token %}
+        <div class="form-group">
+            <label for= "category"> Select a Category</label>
+            <select id= "category" name= "category" class= "form-select">
+            <option selected> All Categories </option>
+                {% for category in categories %}
+                <option value= "{{category}}">{{category}}</option>
+                {% endfor %}
+            </select>   
+        </div>
+   
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary"> Search </button>
+        </div>
+    </form>
+
+
+    {% if active_items %}
+    <div class= "card-container">
+    
+        {% for item in active_items %}
+    
+        <div class="card" style="width: 18rem;">
+            <img id= "img" src="{{item.picture}}" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Price: ${{item.price}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{item.title}}</h6>
+                    <p class="text-justify" id= "item-description">{{item.description}}</p>
+                    <a href="{% url "item" id=item.id %}" class="card-link">Details</a>
+                </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    {% if message %}
+    <div class= "alert alert-warning" role= "alert">
+        {{message}}
+    </div>
+    {% endif %} 
+
+{% endblock %}
