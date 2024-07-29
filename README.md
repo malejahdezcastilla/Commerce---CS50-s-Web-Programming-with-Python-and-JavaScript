@@ -1,6 +1,6 @@
 # Commerce--CS50s-Web-Programming-with-Python-and-JavaScript
 
-##Specification
+## Specification
 
 Complete the implementation of your auction site. You must fulfill the following requirements:
 
